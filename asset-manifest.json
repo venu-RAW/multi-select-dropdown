@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/multi-select-dropdown/static/css/main.9144b677.chunk.css",
+    "main.css": "/multi-select-dropdown/static/css/main.64cd8a63.chunk.css",
     "main.js": "/multi-select-dropdown/static/js/main.06e680b4.chunk.js",
     "main.js.map": "/multi-select-dropdown/static/js/main.06e680b4.chunk.js.map",
     "runtime-main.js": "/multi-select-dropdown/static/js/runtime-main.35d0ad56.js",
@@ -8,13 +8,13 @@
     "static/js/2.f7be66e7.chunk.js": "/multi-select-dropdown/static/js/2.f7be66e7.chunk.js",
     "static/js/2.f7be66e7.chunk.js.map": "/multi-select-dropdown/static/js/2.f7be66e7.chunk.js.map",
     "index.html": "/multi-select-dropdown/index.html",
-    "static/css/main.9144b677.chunk.css.map": "/multi-select-dropdown/static/css/main.9144b677.chunk.css.map",
+    "static/css/main.64cd8a63.chunk.css.map": "/multi-select-dropdown/static/css/main.64cd8a63.chunk.css.map",
     "static/js/2.f7be66e7.chunk.js.LICENSE.txt": "/multi-select-dropdown/static/js/2.f7be66e7.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.35d0ad56.js",
     "static/js/2.f7be66e7.chunk.js",
-    "static/css/main.9144b677.chunk.css",
+    "static/css/main.64cd8a63.chunk.css",
     "static/js/main.06e680b4.chunk.js"
   ]
 }
