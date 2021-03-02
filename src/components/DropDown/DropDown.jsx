@@ -75,17 +75,14 @@ class DropDown extends Component {
 		}
 
 		removeSelection = removeSelection.filter((rem) => rem !== value);
-		if (selectedValue.length === 0 || selectedValue.length - 1) {
-			this.setState({
-				selectAll: false,
-			});
-		}
-
 		this.setState(
 			{
 				selectedValue: [...removeSelection],
 			},
-			() => result(this.state.selectedValue)
+			() => {
+				result(this.state.selectedValue);
+				this.toggleSelectAll();
+			}
 		);
 	};
 
@@ -136,6 +133,10 @@ class DropDown extends Component {
 			this.setState({
 				selectAll: true,
 			});
+		} else {
+			this.setState({
+				selectAll: false,
+			});
 		}
 	};
 
@@ -155,6 +156,7 @@ class DropDown extends Component {
 			},
 			() => {
 				result(this.state.selectedValue);
+				this.toggleSelectAll();
 			}
 		);
 	};
@@ -183,12 +185,15 @@ class DropDown extends Component {
 	 ** Sets selectedValue inside state and the selectedValue value is passed to result().
 	 */
 	closeDropDown = (event) => {
+		const { data } = this.props;
 		if (
 			event.currentTarget.id === "dropdown" &&
 			!event.currentTarget.contains(event.relatedTarget)
 		) {
 			this.setState({
 				showDropDown: false,
+				resultArray: [...data],
+				query: "",
 			});
 		}
 	};
@@ -215,12 +220,7 @@ class DropDown extends Component {
 					onKeyPress={() => this.setState({ showDropDown: true })}
 					onBlur={this.closeDropDown}
 				>
-					<div
-						tabIndex={0}
-						data-test="control"
-						className={styles.control}
-						// onClick={this.toggle}
-					>
+					<div tabIndex={0} data-test="control" className={styles.control}>
 						<div className={styles.selectedValue}>
 							{!multiSelect ? (
 								<p>
