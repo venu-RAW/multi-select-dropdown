@@ -1,0 +1,52 @@
+$primary-color: #999;
+$secondary-color: #fff;
+
+::placeholder {
+	color: $primary-color;
+	font-weight: 100 !important;
+	font-size: 1.6rem;
+	font-family: "Hammersmith One", sans-serif;
+}
+
+.left {
+	flex-direction: row-reverse;
+}
+
+.searchBar {
+	height: 5rem;
+	padding: 1rem 0.6rem;
+	margin-bottom: 0.5rem;
+	border: 2px solid #ccc;
+	border-radius: 0.5rem;
+	background-color: $secondary-color;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+
+	.searchInput {
+		width: 100%;
+		color: rgba(51, 51, 51, 0.8);
+		font-size: 1.6rem;
+		font-weight: bold;
+		padding: 1rem;
+		letter-spacing: 1px;
+		border: none;
+		background: none;
+		outline: none;
+		transition: 0.5s;
+		flex: 1;
+		cursor: default;
+	}
+
+	.searchBtn {
+		width: 4rem;
+		height: 4rem;
+		border-radius: 1rem;
+		color: $primary-color;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
+}
