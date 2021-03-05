@@ -24,9 +24,12 @@ class DropDown extends Component {
 	};
 
 	toggle = () => {
+		const { data } = this.props;
 		const { showDropDown } = this.state;
 		this.setState({
 			showDropDown: !showDropDown,
+			resultArray: [...data],
+			query: "",
 		});
 	};
 
@@ -46,7 +49,7 @@ class DropDown extends Component {
 	 * @param value
 	 ** Sets selectedValue inside state and the selectedValue value is passed to result().
 	 */
-	selectSingleOption = (value) => {
+	selectOption = (value) => {
 		const { selectedValue } = this.state;
 		const { result, multiSelect } = this.props;
 		let removeSelection = selectedValue;
@@ -120,11 +123,7 @@ class DropDown extends Component {
 		}
 	};
 
-	/**
-	 * @function removeValue
-	 * @param data
-	 ** Removes all the selected values from the selectedValue array.
-	 */
+
 	toggleSelectAll = () => {
 		const { selectedValue } = this.state;
 		const { data } = this.props;
@@ -161,20 +160,34 @@ class DropDown extends Component {
 		);
 	};
 
+	removeAll = () => {
+		this.setState({
+			selectAll: false,
+			selectedValue: [],
+		});
+	};
+
 	noResultArray = () => {
 		if (!this.state.query.length) return true;
 
 		return false;
 	};
 
-	noResult = () => {
-		const { displayKey } = this.props;
-		const result = this.state.resultArray.some(
-			(data) => this.state.query !== data[displayKey]
-		);
+	// noResult = () => {
+	// 	const { displayKey } = this.props;
+	// 	const result = this.state.resultArray.some(
+	// 		(data) => this.state.query !== data[displayKey]
+	// 	);
 
-		if (!result && !this.state.query.length) return true;
-		if (!result) return;
+	// 	if (!result && !this.state.query.length) return true;
+	// 	if (!result) return;
+
+	// 	return true;
+	// };
+
+	noResult = () => {
+		if (this.state.query.length && !this.state.resultArray.length)
+			return false;
 
 		return true;
 	};
@@ -217,7 +230,7 @@ class DropDown extends Component {
 					data-test="dropdown"
 					className={styles.dropdown}
 					tabIndex={0}
-					onKeyPress={() => this.setState({ showDropDown: true })}
+					// onKeyPress={() => this.setState({ showDropDown: true })}
 					onBlur={this.closeDropDown}
 				>
 					<div tabIndex={0} data-test="control" className={styles.control}>
@@ -240,6 +253,7 @@ class DropDown extends Component {
 												>
 													<span>{value[displayKey]}</span>
 													<button
+														data-test="removeValue"
 														onClick={() => {
 															this.removeValue(value);
 														}}
@@ -252,12 +266,14 @@ class DropDown extends Component {
 									</div>
 									<div className={styles.bottom}>
 										<button
-											onClick={() => {
-												this.setState({
-													selectAll: false,
-													selectedValue: [],
-												});
-											}}
+											data-test="removeAll"
+											onClick={this.removeAll}
+											// onClick={() => {
+											// 	this.setState({
+											// 		selectAll: false,
+											// 		selectedValue: [],
+											// 	});
+											// }}
 										>
 											<i className="fas fa-times"></i>
 										</button>
@@ -269,7 +285,11 @@ class DropDown extends Component {
 								</div>
 							)}
 						</div>
-						<div className={styles.arrow} onClick={this.toggle}>
+						<div
+							className={styles.arrow}
+							data-test="arrow"
+							onClick={this.toggle}
+						>
 							<i
 								data-test="icon"
 								className={`fas fa-caret-${
@@ -285,7 +305,7 @@ class DropDown extends Component {
 								displayKey={displayKey}
 								searchKeys={searchKeys}
 								resultList={this.resultList}
-								query={(query) => this.setState({ query })}
+								query={(query) => this.setState({ query: query })}
 								alignIcon="left"
 							/>
 
@@ -293,6 +313,14 @@ class DropDown extends Component {
 								<>
 									{multiSelect && this.noResultArray() && (
 										<div
+											tabIndex={0}
+											data-test="selectAll"
+											onKeyPress={(e) => {
+												const { multiSelect } = this.props;
+												if (e.key === "Enter") {
+													if (multiSelect) this.selectAll();
+												}
+											}}
 											onClick={this.selectAll}
 											className={styles.selectAll}
 										>
@@ -317,17 +345,18 @@ class DropDown extends Component {
 											data-test="option"
 											key={data.id}
 											onKeyPress={(e) => {
+												const { multiSelect } = this.props;
 												if (e.key === "Enter") {
-													this.selectSingleOption(data);
-													this.setState({
-														showDropDown: false,
-													});
+													this.selectOption(data);
+													if (!multiSelect)
+														this.setState({
+															showDropDown: false,
+														});
 												}
 											}}
 											onClick={() => {
 												const { multiSelect } = this.props;
-												this.selectSingleOption(data);
-												// this.toggleSelectAll(data);
+												this.selectOption(data);
 												if (!multiSelect) {
 													this.toggle();
 												}

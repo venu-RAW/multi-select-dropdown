@@ -69,9 +69,10 @@ class SearchBar extends Component {
 				}
 				console.error("Keys are not same");
 			});
-		} else {
-			return resultList(searchData);
 		}
+		// else {
+		// 	return resultList(searchData);
+		// }
 	};
 
 	render() {
