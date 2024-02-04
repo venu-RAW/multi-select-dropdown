@@ -19,5 +19,3 @@
 -  `promt` : The promt type must be a string. It is like a placeholder for the dropdwon.
 
 -  `alignIcon` : The alignIcon type must be a string ( left or right ) and by default the value is "right".
-
-### Live Preview: https://venu-raw.github.io/dropdown/
